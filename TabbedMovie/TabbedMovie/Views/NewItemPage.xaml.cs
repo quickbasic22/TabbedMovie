@@ -10,7 +10,7 @@ namespace TabbedMovie.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Movie Item { get; set; }
 
         public NewItemPage()
         {

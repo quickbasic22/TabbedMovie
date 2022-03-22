@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TabbedMovie.Models;
-using TabbedMovie.Services;
+using TabbedMovie.Data;
 using Xamarin.Forms;
 
 namespace TabbedMovie.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public TabbedMovie.Data.MovieContext DataStore => DependencyService.Get<TabbedMovie.Data.MovieContext>();
 
         bool isBusy = false;
         public bool IsBusy

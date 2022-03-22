@@ -3,27 +3,42 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using TabbedMovie.Models;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace TabbedMovie.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+       
         private string itemId;
-        private string text;
-        private string description;
-        public string Id { get; set; }
+        private int id;
+        private string title;
+        private int year;
+        private string imdb_id;
 
-        public string Text
+        public int Id
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => id;
+            set => SetProperty(ref id, value);
         }
 
-        public string Description
+        public string Title
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+
+        public int Year
+        {
+            get => year;
+            set => SetProperty(ref year, value);
+        }
+
+        public string Imdb_Id 
+        {
+            get => imdb_id;
+            set => SetProperty(ref imdb_id, value);
         }
 
         public string ItemId
@@ -41,12 +56,13 @@ namespace TabbedMovie.ViewModels
 
         public async void LoadItemId(string itemId)
         {
+            var detailMovie = DataStore.Movies.Find(itemId);
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                Id = detailMovie.Id;
+                Title = detailMovie.Title;
+                Year = detailMovie.Year;
+                Imdb_Id = detailMovie.Imdb_Id;
             }
             catch (Exception)
             {

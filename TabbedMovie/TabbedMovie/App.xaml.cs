@@ -13,7 +13,7 @@ namespace TabbedMovie
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<TabbedMovie.Data.MovieContext>();
             MainPage = new AppShell();
         }
 

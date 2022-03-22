@@ -4,13 +4,16 @@ using System.Text;
 using System.Windows.Input;
 using TabbedMovie.Models;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace TabbedMovie.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private int id;
+        private string title;
+        private int year;
+        private string imdb_id;
 
         public NewItemViewModel()
         {
@@ -22,20 +25,32 @@ namespace TabbedMovie.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(title)
+                && !String.IsNullOrWhiteSpace(imdb_id);
         }
 
-        public string Text
+        public int Id
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => id;
+            set => SetProperty(ref id, value);
         }
 
-        public string Description
+        public string Title
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+
+        public int Year 
+        {
+            get => year;
+            set => SetProperty(ref year, value);
+        }
+
+        public string Imdb_Id
+        {
+            get => imdb_id;
+            set => SetProperty(ref imdb_id, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,14 +64,18 @@ namespace TabbedMovie.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            var lastId = DataStore.Movies.Last().Id;
+            var nextId = lastId++;
+
+            Movie newItem = new Movie()
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                Id = nextId = Id,
+                Title = Title,
+                Year = Year,
+                Imdb_Id = Imdb_Id
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await DataStore.Movies.AddAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

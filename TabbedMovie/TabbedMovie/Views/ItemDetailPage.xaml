@@ -5,10 +5,14 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
+        <Label Text="Id:" FontSize="Medium" />
+        <Label Text="{Binding Id}" FontSize="Small"/>
+        <Label Text="Title:" FontSize="Medium" />
+        <Label Text="{Binding Title}" FontSize="Small"/>
+        <Label Text="Year:" FontSize="Medium" />
+        <Label Text="{Binding Year}" FontSize="Small"/>
+        <Label Text="Imdb_Id:" FontSize="Medium" />
+        <Label Text="{Binding Imdb_Id}" FontSize="Small"/>
     </StackLayout>
     
 </ContentPage>
