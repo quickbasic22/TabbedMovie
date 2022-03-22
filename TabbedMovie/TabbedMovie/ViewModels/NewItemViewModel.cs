@@ -65,11 +65,20 @@ namespace TabbedMovie.ViewModels
 
         private async void OnSave()
         {
+            var nextId = 0;
             try
             {
                 var movie = App.DataStore.Movies.ToList();
-                var lastId = movie.Last().Id;
-                var nextId = lastId++;
+                if (movie.Count > 0)
+                {
+                    var lastId = movie.LastOrDefault().Id;
+                    nextId = lastId++;
+                }
+                else
+                {
+                    nextId = 1;
+                }
+               
 
                 Movie newItem = new Movie()
                 {
