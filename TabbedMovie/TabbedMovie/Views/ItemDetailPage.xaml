@@ -8,7 +8,7 @@
         <Label Text="Id:" FontSize="Medium" />
         <Label Text="{Binding Id}" FontSize="Small"/>
         <Label Text="Title:" FontSize="Medium" />
-        <Label Text="{Binding Title}" FontSize="Small"/>
+        <Label Text="{Binding MovieTitle}" FontSize="Small"/>
         <Label Text="Year:" FontSize="Medium" />
         <Label Text="{Binding Year}" FontSize="Small"/>
         <Label Text="Imdb_Id:" FontSize="Medium" />

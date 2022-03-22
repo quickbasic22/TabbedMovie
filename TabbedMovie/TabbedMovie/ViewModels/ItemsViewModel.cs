@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using TabbedMovie.Models;
 using TabbedMovie.Views;
@@ -21,26 +22,28 @@ namespace TabbedMovie.ViewModels
         {
             Title = "Browse";
             Items = new ObservableCollection<Movie>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(() => ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<Movie>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
 
-        Task ExecuteLoadItemsCommand()
+        void ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
             try
             {
                 Items.Clear();
-                var items = DataStore.Movies;
+                var items = App.DataStore.Movies.ToList();
+
                 foreach (var item in items)
                 {
                     Items.Add(item);
                 }
             }
+
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);

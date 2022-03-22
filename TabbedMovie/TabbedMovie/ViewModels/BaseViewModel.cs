@@ -10,8 +10,6 @@ namespace TabbedMovie.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public TabbedMovie.Data.MovieContext DataStore => DependencyService.Get<TabbedMovie.Data.MovieContext>();
-
         bool isBusy = false;
         public bool IsBusy
         {

@@ -23,7 +23,7 @@ namespace TabbedMovie.ViewModels
             set => SetProperty(ref id, value);
         }
 
-        public string Title
+        public string MovieTitle
         {
             get => title;
             set => SetProperty(ref title, value);
@@ -54,13 +54,13 @@ namespace TabbedMovie.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public void LoadItemId(string itemId)
         {
-            var detailMovie = DataStore.Movies.Find(itemId);
+            var detailMovie = App.DataStore.Movies.Find(itemId);
             try
             {
                 Id = detailMovie.Id;
-                Title = detailMovie.Title;
+                MovieTitle = detailMovie.Title;
                 Year = detailMovie.Year;
                 Imdb_Id = detailMovie.Imdb_Id;
             }

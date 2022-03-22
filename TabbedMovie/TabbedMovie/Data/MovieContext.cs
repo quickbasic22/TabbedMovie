@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using TabbedMovie.Models;
 
 namespace TabbedMovie.Data
@@ -19,7 +21,7 @@ namespace TabbedMovie.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite(@"Data Source=C:\Users\quick\source\repos\TabbedMovie\DataBaseDummyProject\Data\MovieDb.db3");
+            optionsBuilder.UseSqlite(@"Data Source=" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "MovieDb.db3"));
         }
     }
 }

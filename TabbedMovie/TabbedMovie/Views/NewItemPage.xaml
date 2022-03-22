@@ -11,7 +11,7 @@
             <Label Text="Id" FontSize="Medium" />
             <Entry Text="{Binding Id, Mode=TwoWay}" FontSize="Medium" />
             <Label Text="Title" FontSize="Medium" />
-            <Editor Text="{Binding Title, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Editor Text="{Binding MovieTitle, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <Label Text="Year" FontSize="Medium" />
             <Editor Text="{Binding Year, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <Label Text="Imdb_Id" FontSize="Medium" />

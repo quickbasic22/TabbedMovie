@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TabbedMovie.Models;
 using Xamarin.Forms;
 using System.Linq;
+using System.Diagnostics;
 
 namespace TabbedMovie.ViewModels
 {
@@ -35,7 +36,7 @@ namespace TabbedMovie.ViewModels
             set => SetProperty(ref id, value);
         }
 
-        public string Title
+        public string MovieTitle
         {
             get => title;
             set => SetProperty(ref title, value);
@@ -64,18 +65,27 @@ namespace TabbedMovie.ViewModels
 
         private async void OnSave()
         {
-            var lastId = DataStore.Movies.Last().Id;
-            var nextId = lastId++;
-
-            Movie newItem = new Movie()
+            try
             {
-                Id = nextId = Id,
-                Title = Title,
-                Year = Year,
-                Imdb_Id = Imdb_Id
-            };
+                var movie = App.DataStore.Movies.ToList();
+                var lastId = movie.Last().Id;
+                var nextId = lastId++;
 
-            await DataStore.Movies.AddAsync(newItem);
+                Movie newItem = new Movie()
+                {
+                    Id = nextId,
+                    Title = MovieTitle,
+                    Year = Year,
+                    Imdb_Id = Imdb_Id
+                };
+                newItem.Id = Id;
+                await App.DataStore.Movies.AddAsync(newItem);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
