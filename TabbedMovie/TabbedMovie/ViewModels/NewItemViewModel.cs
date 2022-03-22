@@ -26,8 +26,8 @@ namespace TabbedMovie.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(title)
-                && !String.IsNullOrWhiteSpace(imdb_id);
+            return !String.IsNullOrWhiteSpace(MovieTitle)
+                && !String.IsNullOrWhiteSpace(Imdb_Id);
         }
 
         public int Id
@@ -65,24 +65,23 @@ namespace TabbedMovie.ViewModels
 
         private async void OnSave()
         {
-            var nextId = 0;
+            var lastId = 0;
             try
             {
                 var movie = App.DataStore.Movies.ToList();
                 if (movie.Count > 0)
                 {
-                    var lastId = movie.LastOrDefault().Id;
-                    nextId = lastId++;
+                    lastId = movie.LastOrDefault().Id;
                 }
                 else
                 {
-                    nextId = 1;
+                    lastId = 1;
                 }
                
 
                 Movie newItem = new Movie()
                 {
-                    Id = nextId,
+                    Id = lastId,
                     Title = MovieTitle,
                     Year = Year,
                     Imdb_Id = Imdb_Id
