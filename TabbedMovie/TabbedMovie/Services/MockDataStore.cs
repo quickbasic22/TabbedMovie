@@ -18,6 +18,7 @@ namespace TabbedMovie.Services
         public async Task<bool> AddItemAsync(Movie item)
         {
             movieContext.Movies.Add(item);
+            await movieContext.SaveChangesAsync();
 
             return await Task.FromResult(true);
         }
@@ -27,6 +28,7 @@ namespace TabbedMovie.Services
             var oldItem = movieContext.Movies.Where((Movie arg) => arg.Id == item.Id).FirstOrDefault();
             movieContext.Movies.Remove(oldItem);
             movieContext.Movies.Add(item);
+            await movieContext.SaveChangesAsync();
 
             return await Task.FromResult(true);
         }
@@ -35,6 +37,7 @@ namespace TabbedMovie.Services
         {
             var oldItem = movieContext.Movies.Where((Movie arg) => arg.Id == id).FirstOrDefault();
             movieContext.Movies.RemoveRange(oldItem);
+            await movieContext.SaveChangesAsync();
 
             return await Task.FromResult(true);
         }
