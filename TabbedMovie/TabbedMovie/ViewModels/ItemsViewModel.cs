@@ -29,14 +29,14 @@ namespace TabbedMovie.ViewModels
             AddItemCommand = new Command(OnAddItem);
         }
 
-        void ExecuteLoadItemsCommand()
+        async void ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
             try
             {
                 Items.Clear();
-                var items = App.DataStore.Movies.ToList();
+                var items = await DataStore.GetItemsAsync();
 
                 foreach (var item in items)
                 {

@@ -5,11 +5,13 @@ using System.Runtime.CompilerServices;
 using TabbedMovie.Models;
 using TabbedMovie.Data;
 using Xamarin.Forms;
+using TabbedMovie.Services;
 
 namespace TabbedMovie.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public IDataStore<Movie> DataStore => DependencyService.Get<IDataStore<Movie>>();
         bool isBusy = false;
         public bool IsBusy
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using TabbedMovie.Services;
 using TabbedMovie.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,12 +8,10 @@ namespace TabbedMovie
 {
     public partial class App : Application
     {
-        public static TabbedMovie.Data.MovieContext DataStore;
         public App()
         {
             InitializeComponent();
-            DataStore = new Data.MovieContext();
-            
+            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 

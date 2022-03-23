@@ -11,7 +11,7 @@ namespace TabbedMovie.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
        
-        private string itemId;
+        private int itemId;
         private int id;
         private string title;
         private int year;
@@ -41,7 +41,7 @@ namespace TabbedMovie.ViewModels
             set => SetProperty(ref imdb_id, value);
         }
 
-        public string ItemId
+        public int ItemId
         {
             get
             {
@@ -54,9 +54,9 @@ namespace TabbedMovie.ViewModels
             }
         }
 
-        public void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
-            var detailMovie = App.DataStore.Movies.Find(itemId);
+            var detailMovie = await DataStore.GetItemAsync(itemId);
             try
             {
                 Id = detailMovie.Id;
