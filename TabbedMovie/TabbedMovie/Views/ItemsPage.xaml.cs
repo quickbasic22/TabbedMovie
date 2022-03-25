@@ -28,5 +28,13 @@ namespace TabbedMovie.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
+        private void SwipeDelete_Invoked(object sender, EventArgs e)
+        {
+            var swipeitem = sender as SwipeItem;
+            var context = swipeitem.BindingContext;
+            var movie = context as Movie;
+            _viewModel.DeleteCommand.Execute(movie);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace TabbedMovie.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Movie _selectedItem;
-
+        public Command DeleteCommand { get; }
         public ObservableCollection<Movie> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -23,10 +23,19 @@ namespace TabbedMovie.ViewModels
             Title = "Browse";
             Items = new ObservableCollection<Movie>();
             LoadItemsCommand = new Command(() => ExecuteLoadItemsCommand());
-
+            DeleteCommand = new Command(OnDeleteMovie);
             ItemTapped = new Command<Movie>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+        }
+
+        private void OnDeleteMovie(object obj)
+        {
+            var movie = obj as Movie;
+
+            DataStore.DeleteItemAsync(movie.Id);
+            Items.Remove(movie);
+
         }
 
         async void ExecuteLoadItemsCommand()

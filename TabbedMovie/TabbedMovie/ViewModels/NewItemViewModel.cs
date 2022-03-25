@@ -4,19 +4,19 @@ using TabbedMovie.Models;
 using Xamarin.Forms;
 using System.Linq;
 using TabbedMovie.Data;
+using QuickType1;
 
 namespace TabbedMovie.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string id;
         private string title;
         private int year;
         private string imdb_id;
+        private List<MovieResult> movieresults;
 
         public NewItemViewModel()
         {
-            id = "4";
             title = "Movie Title";
             year = 2022;
             imdb_id = "tt9847360";
@@ -32,10 +32,10 @@ namespace TabbedMovie.ViewModels
                 && !String.IsNullOrWhiteSpace(Imdb_Id);
         }
 
-        public string Id
+        public List<MovieResult> MovieResult
         {
-            get => id;
-            set => SetProperty(ref id, value);
+            get => movieresults;
+            set => SetProperty(ref movieresults, value);
         }
 
         public string MovieTitle
@@ -70,7 +70,6 @@ namespace TabbedMovie.ViewModels
             
                 Movie newItem = new Movie()
                 {
-                    Id = int.Parse(Id),
                     Title = MovieTitle,
                     Year = Year,
                     Imdb_Id = Imdb_Id
