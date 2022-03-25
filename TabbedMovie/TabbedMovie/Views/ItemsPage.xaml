@@ -14,7 +14,7 @@
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView x:Name="MyRefreshView" x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
@@ -23,12 +23,15 @@
                     <SwipeView x:Name="movieSwipeView">
                         <SwipeView.RightItems>
                             <SwipeItems>
-                                <SwipeItem x:Name="SwipeDelete" Text="Delete" IconImageSource="icon.png" 
-                                           Invoked="SwipeDelete_Invoked">
+                                <SwipeItem x:Name="SwipeDelete"
+                                           Text="Delete"
+                                           BackgroundColor="Blue"
+                                           Invoked="SwipeDelete_Invoked"
+                                           IconImageSource="icon_feed.png">
                                 </SwipeItem>
                             </SwipeItems>
                         </SwipeView.RightItems>
-                        <StackLayout Padding="10" x:DataType="model:Movie">
+                        <StackLayout x:Name="MyStack" Padding="10" x:DataType="model:Movie">
                             <Label Text="{Binding Id}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 

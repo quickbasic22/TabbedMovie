@@ -19,7 +19,6 @@ namespace TabbedMovie.Views
         public ItemsPage()
         {
             InitializeComponent();
-
             BindingContext = _viewModel = new ItemsViewModel();
         }
 
@@ -35,6 +34,12 @@ namespace TabbedMovie.Views
             var context = swipeitem.BindingContext;
             var movie = context as Movie;
             _viewModel.DeleteCommand.Execute(movie);
+        }
+
+        private void SwipeDelete_Clicked(object sender, EventArgs e)
+        {
+            var item = sender as SwipeItem;
+            item.IconImageSource = "icon.png";
         }
     }
 }

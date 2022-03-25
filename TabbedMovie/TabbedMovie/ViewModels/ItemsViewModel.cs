@@ -25,7 +25,6 @@ namespace TabbedMovie.ViewModels
             LoadItemsCommand = new Command(() => ExecuteLoadItemsCommand());
             DeleteCommand = new Command(OnDeleteMovie);
             ItemTapped = new Command<Movie>(OnItemSelected);
-
             AddItemCommand = new Command(OnAddItem);
         }
 
