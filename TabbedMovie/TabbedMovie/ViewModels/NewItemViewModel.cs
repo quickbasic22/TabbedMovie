@@ -5,31 +5,35 @@ using Xamarin.Forms;
 using System.Linq;
 using TabbedMovie.Data;
 using QuickType1;
+using System.ComponentModel.DataAnnotations;
 
 namespace TabbedMovie.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string title;
-        private int year;
-        private string imdb_id;
+        private string movietitle;
+        private int movieyear;
+        private string movieimdb_id;
         private List<MovieResult> movieresults;
+        public Command SaveCommand { get; }
+        //public Command CancelCommand { get; }
 
         public NewItemViewModel()
         {
-            title = "Movie Title";
-            year = 2022;
-            imdb_id = "tt9847360";
+            movietitle = "Movie title";
+            movieyear = 2022;
+            movieimdb_id = "sddxfx999";
             SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
+            //CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
+        
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(MovieTitle)
-                && !String.IsNullOrWhiteSpace(Imdb_Id);
+            return !String.IsNullOrWhiteSpace(movietitle)
+                && !String.IsNullOrWhiteSpace(movieimdb_id);
         }
 
         public List<MovieResult> MovieResult
@@ -38,44 +42,42 @@ namespace TabbedMovie.ViewModels
             set => SetProperty(ref movieresults, value);
         }
 
-        public string MovieTitle
+        public new string Title
         {
-            get => title;
-            set => SetProperty(ref title, value);
+            get => movietitle;
+            set => SetProperty(ref movietitle, value);
         }
 
         public int Year 
         {
-            get => year;
-            set => SetProperty(ref year, value);
+            get => movieyear;
+            set => SetProperty(ref movieyear, value);
         }
 
-        public string Imdb_Id
+        public string ImdbId
         {
-            get => imdb_id;
-            set => SetProperty(ref imdb_id, value);
+            get => movieimdb_id;
+            set => SetProperty(ref movieimdb_id, value);
         }
 
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-
-        private async void OnCancel()
-        {
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
-        }
+        
+        //private async void OnCancel()
+        //{
+        //    // This will pop the current page off the navigation stack
+        //    await Shell.Current.GoToAsync("..");
+        //}
 
         private async void OnSave()
         {
-            
-                Movie newItem = new Movie()
-                {
-                    Title = MovieTitle,
-                    Year = Year,
-                    Imdb_Id = Imdb_Id
-                };
+            var movie = new QuickType1.MovieResult();
+            var newMovie = new Movie();
+            var movieList = MovieResult.ToList();
+            newMovie.Title = movieList[0].Title;
+            newMovie.Year = (int)movieList[0].Year;
+            newMovie.Imdb_Id = movieList[0].ImdbId;
 
-            await DataStore.AddItemAsync(newItem);
+
+            await DataStore.AddItemAsync(newMovie);
                       
 
             // This will pop the current page off the navigation stack

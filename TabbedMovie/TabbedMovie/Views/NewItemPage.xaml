@@ -2,41 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TabbedMovie.Views.NewItemPage"
+             xmlns:service="clr-namespace:QuickType1"
              Shell.PresentationMode="ModalAnimated"
              Title="New Item"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView x:Name="CollectionViewMovieList">
-                <CollectionView.Header>
-                    <SearchBar x:Name="SearchBar" Text="Search Bar" Placeholder="Type Movie Title" TextChanged="SearchBar_TextChanged"
-                               BackgroundColor="Sienna">
-                    </SearchBar>
-                </CollectionView.Header>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Label Text="{Binding MovieResults.Title, Mode=TwoWay}" FontSize="Large" />
-                            <Label Text="{Binding MovieResults.ImdbId, Mode=TwoWay}" FontSize="Large" />
-                            <Label Text="{Binding MovieResults.Year, Mode=TwoWay}" FontSize="Large" />
+        <CollectionView x:Name="CollectionViewMovieList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Spacing="3" Padding="15" x:DataType="service:MovieResult">
+                        <SearchBar x:Name="MovieSearchBar" BackgroundColor="Purple" FontSize="Large" Placeholder="Movie Title" PlaceholderColor="MintCream" TextChanged="MovieSearchBar_TextChanged" />
+                        <Label Text="Title" FontSize="Medium" />
+                        <Editor Text="{Binding Title, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                        <Label Text="Year" FontSize="Medium" />
+                        <Editor Text="{Binding Year, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                        <Label Text="Imdb_Id" FontSize="Medium" />
+                        <Editor Text="{Binding ImdbId, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                        <StackLayout Orientation="Horizontal">
                         </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <StackLayout Spacing="3" Padding="15">
-                <Label Text="Title" FontSize="Medium" />
-                <Editor Text="{Binding MovieTitle, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-                <Label Text="Year" FontSize="Medium" />
-                <Editor Text="{Binding Year, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-                <Label Text="Imdb_Id" FontSize="Medium" />
-                <Editor Text="{Binding Imdb_Id, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-                </StackLayout>
-            </StackLayout>
-        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ContentPage.Content>
-    
 </ContentPage>

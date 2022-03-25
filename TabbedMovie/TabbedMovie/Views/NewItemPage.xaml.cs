@@ -20,7 +20,8 @@ namespace TabbedMovie.Views
             BindingContext = _viewModel = new NewItemViewModel();
         }
 
-        private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+       
+        private async void MovieSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             var movieService = new Services.GetMovies();
             var movieList = await movieService.GetMovieList(e.NewTextValue);
