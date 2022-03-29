@@ -2,24 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TabbedMovie.Views.NewItemPage"
-             xmlns:service="clr-namespace:QuickType1"
-             Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="true">
+             xmlns:view="clr-namespace:TabbedMovie.ViewModels"
+             Title="New Item">
+    <ContentPage.BindingContext>
+        <view:NewItemViewModel></view:NewItemViewModel>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <CollectionView x:Name="CollectionViewMovieList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Spacing="3" Padding="15" x:DataType="service:MovieResult">
-                        <SearchBar x:Name="MovieSearchBar" BackgroundColor="Purple" FontSize="Large" Placeholder="Movie Title" PlaceholderColor="MintCream" TextChanged="MovieSearchBar_TextChanged" />
+                    <StackLayout Spacing="3" Padding="15" x:DataType="view:NewItemViewModel">
+                        <SearchBar x:Name="MovieSearchBar" BackgroundColor="Purple" TextColor="Black" PlaceholderColor="Orchid" FontSize="Large" Placeholder="Movie Title" TextChanged="MovieSearchBar_TextChanged"></SearchBar>
                         <Label Text="Title" FontSize="Medium" />
                         <Editor Text="{Binding Title, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
                         <Label Text="Year" FontSize="Medium" />
                         <Editor Text="{Binding Year, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
                         <Label Text="Imdb_Id" FontSize="Medium" />
                         <Editor Text="{Binding ImdbId, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" x:DataType="view:NewItemViewModel">
+                            <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                            <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
                         </StackLayout>
                     </StackLayout>
                 </DataTemplate>
